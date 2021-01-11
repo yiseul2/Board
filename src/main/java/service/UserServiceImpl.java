@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
-    @Autowired
+    //@Autowired
     JwtUtil jwtUtil;
 
     @Override
@@ -35,8 +35,9 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.getUserByAccountId(account_id);
 
         // 계정 유무 & 비밀번호 일치여부 확인 => 비밀번호 일치하면 토큰 생성
+        // jwt 반환하도록 바꾸기
         if(user != null && (BCrypt.checkpw(password, user.getPassword()) == true))
-           return jwtUtil.createJwt(user.getId());
+           return "success";
         else
             return null;
     }
